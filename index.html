@@ -3,141 +3,332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inson Xarakterini Aniqlash</title>
+
+    <title>MathAI — Matematik Yordamchi</title>
+
+    <meta
+        name="description"
+        content="MathAI — matematik masalalarni AI yordamida yechuvchi aqlli yordamchi."
+    >
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="bg-circle circle1"></div>
-<div class="bg-circle circle2"></div>
-<div class="bg-circle circle3"></div>
+    <!-- Background -->
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
 
-<div class="container">
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <span class="logo-symbol">∑</span>
+            <span>Math<span class="logo-ai">AI</span></span>
+        </div>
 
-    <!-- BOSHLANISH -->
-    <section id="startScreen" class="screen active">
+        <div class="header-badge">
+            🤖 AI Matematik Yordamchi
+        </div>
+    </header>
 
-        <div class="big-emoji">🧠</div>
 
-        <h1>
-            Haqiqiy xarakteringni
-            <span>bilishga tayyormisan?</span>
-        </h1>
+    <!-- Main -->
+    <main class="container">
+
+        <!-- Hero -->
+        <section class="hero">
+
+            <div class="hero-badge">
+                ✨ Sun'iy intellekt bilan
+            </div>
+
+            <h1>
+                Matematik misolni
+                <span>oson yeching</span>
+            </h1>
+
+            <p>
+                Masalani yozing yoki rasmini yuklang.
+                MathAI uni tahlil qilib, yechimini bosqichma-bosqich tushuntiradi.
+            </p>
+
+        </section>
+
+
+        <!-- Main Card -->
+        <section class="math-card">
+
+            <!-- Upload -->
+            <div class="section-title">
+                <span class="number">1</span>
+
+                <div>
+                    <h2>Masalani kiriting</h2>
+                    <p>Rasm yuklang yoki masalani yozing</p>
+                </div>
+            </div>
+
+
+            <div
+                class="upload-area"
+                id="uploadArea"
+                onclick="document.getElementById('imageInput').click()"
+            >
+
+                <input
+                    type="file"
+                    id="imageInput"
+                    accept="image/*"
+                    hidden
+                >
+
+                <div id="uploadContent">
+
+                    <div class="upload-icon">
+                        📷
+                    </div>
+
+                    <h3>Masala rasmini yuklang</h3>
+
+                    <p>
+                        Rasmni shu yerga tashlang yoki
+                        <strong>tanlang</strong>
+                    </p>
+
+                    <span class="upload-format">
+                        JPG, PNG yoki WEBP
+                    </span>
+
+                </div>
+
+
+                <!-- Preview -->
+                <div
+                    id="previewBox"
+                    class="preview-box"
+                    style="display:none;"
+                >
+
+                    <img
+                        id="previewImage"
+                        src=""
+                        alt="Masala rasmi"
+                    >
+
+                    <button
+                        type="button"
+                        class="remove-image"
+                        onclick="event.stopPropagation(); removeImage();"
+                    >
+                        ✕
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Divider -->
+            <div class="or-divider">
+                <span>yoki</span>
+            </div>
+
+
+            <!-- Text input -->
+            <div class="text-input-wrapper">
+
+                <label for="problemInput">
+                    ✏️ Masalani yozing
+                </label>
+
+                <textarea
+                    id="problemInput"
+                    placeholder="Masalan: 2x + 5 = 17 tenglamani yeching..."
+                    rows="5"
+                ></textarea>
+
+            </div>
+
+
+            <!-- Examples -->
+            <div class="examples">
+
+                <span>Tezkor misollar:</span>
+
+                <button
+                    type="button"
+                    onclick="setExample('2x + 5 = 17 tenglamani yeching')"
+                >
+                    2x + 5 = 17
+                </button>
+
+                <button
+                    type="button"
+                    onclick="setExample('25 × 16 ni hisoblang')"
+                >
+                    25 × 16
+                </button>
+
+                <button
+                    type="button"
+                    onclick="setExample('x² - 5x + 6 = 0 tenglamani yeching')"
+                >
+                    x² - 5x + 6 = 0
+                </button>
+
+            </div>
+
+
+            <!-- Solve -->
+            <button
+                type="button"
+                class="solve-button"
+                onclick="solveProblem()"
+            >
+
+                <span class="solve-icon">✨</span>
+
+                <span>Masalani yechish</span>
+
+                <span class="arrow">→</span>
+
+            </button>
+
+
+            <!-- Result -->
+            <div
+                id="resultCard"
+                class="result-card"
+                style="display:none;"
+            >
+
+                <div class="result-header">
+
+                    <div class="result-title">
+                        <span class="result-icon">🤖</span>
+
+                        <div>
+                            <h2>AI javobi</h2>
+                            <p>Masala tahlili va yechimi</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="resultText"
+                    class="result-text"
+                >
+                    AI javobi shu yerda chiqadi.
+                </div>
+
+
+                <div class="result-actions">
+
+                    <button
+                        type="button"
+                        class="copy-button"
+                        onclick="copyResult()"
+                    >
+                        📋 Javobni nusxalash
+                    </button>
+
+                    <button
+                        type="button"
+                        class="new-button"
+                        onclick="newProblem()"
+                    >
+                        ↻ Yangi masala
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Warning -->
+            <div class="warning">
+
+                <span>💡</span>
+
+                <p>
+                    <strong>Maslahat:</strong>
+                    Rasmni aniq va yorug‘ joyda oling.
+                    Shunda AI masalani yaxshiroq o‘qiydi.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Features -->
+        <section class="features">
+
+            <div class="feature">
+
+                <div class="feature-icon">📸</div>
+
+                <h3>Rasmni o‘qiydi</h3>
+
+                <p>
+                    Matematik masalani rasmdan taniydi.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">🧠</div>
+
+                <h3>AI tahlil qiladi</h3>
+
+                <p>
+                    Masalani tushunib, yechim usulini topadi.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">📝</div>
+
+                <h3>Bosqichma-bosqich</h3>
+
+                <p>
+                    Yechimni tushunarli tarzda ko‘rsatadi.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="footer-logo">
+            ∑ MathAI
+        </div>
 
         <p>
-            15 ta qiziqarli savolga javob ber.
-            Javoblaring asosida xarakteringni aniqlaymiz.
+            Matematikani tushunish — uni yodlashdan yaxshiroq.
         </p>
 
-        <div class="info">
-            <span>📝 15 ta savol</span>
-            <span>🎭 10 xil xarakter</span>
-            <span>💼 Mos kasblar</span>
-        </div>
+        <span>
+            © 2026 MathAI
+        </span>
 
-        <button class="main-btn" onclick="startTest()">
-            Testni boshlash 🚀
-        </button>
-
-        <small>
-            Test ko'ngilochar maqsadda yaratilgan.
-        </small>
-
-    </section>
+    </footer>
 
 
-    <!-- TEST -->
-    <section id="quizScreen" class="screen">
-
-        <div class="quiz-top">
-            <span id="questionNumber">1 / 15</span>
-            <span id="percentage">0%</span>
-        </div>
-
-        <div class="progress">
-            <div id="progressBar"></div>
-        </div>
-
-        <div class="question">
-
-            <div id="questionEmoji" class="questionEmoji">
-                🤔
-            </div>
-
-            <h2 id="questionText">
-                Savol
-            </h2>
-
-        </div>
-
-        <div id="answers" class="answers"></div>
-
-    </section>
-
-
-    <!-- NATIJA -->
-    <section id="resultScreen" class="screen">
-
-        <div id="resultIcon" class="resultIcon">
-            👑
-        </div>
-
-        <div class="resultLabel">
-            SENING XARAKTERING
-        </div>
-
-        <h1 id="resultTitle">
-            Lider
-        </h1>
-
-        <div class="resultCard">
-
-            <p id="resultDescription"></p>
-
-            <div class="resultBox">
-                <div class="boxIcon">💪</div>
-                <div>
-                    <b>Kuchli tomoning</b>
-                    <p id="strength"></p>
-                </div>
-            </div>
-
-            <div class="resultBox">
-                <div class="boxIcon">⚠️</div>
-                <div>
-                    <b>Ehtiyot bo'lish kerak</b>
-                    <p id="weakness"></p>
-                </div>
-            </div>
-
-            <div class="resultBox">
-                <div class="boxIcon">💼</div>
-                <div>
-                    <b>Senga mos kasblar</b>
-                    <p id="career"></p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="subjective">
-            💭 Bu Ozodbekning saytining subyektiv fikri.
-        </div>
-
-        <button class="main-btn" onclick="restartTest()">
-            🔄 Qaytadan test
-        </button>
-
-        <button class="share-btn" onclick="shareResult()">
-            📤 Natijani ulashish
-        </button>
-
-    </section>
-
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
 </html>
