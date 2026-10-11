@@ -1,334 +1,144 @@
+
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>MathAI — Matematik Yordamchi</title>
-
-    <meta
-        name="description"
-        content="MathAI — matematik masalalarni AI yordamida yechuvchi aqlli yordamchi."
-    >
-
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaktabHub Pro</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6fc;
+      color: #172554;
+    }
+    header {
+      background: #173f91;
+      color: white;
+      padding: 22px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    header h1 { margin: 0; font-size: 25px; }
+    header p { margin: 6px 0 0; color: #dbeafe; }
+    .hero {
+      padding: 48px 7%;
+      background: linear-gradient(120deg, #173f91, #3979df);
+      color: white;
+    }
+    .hero h2 { font-size: 34px; margin: 0 0 12px; }
+    .hero p { line-height: 1.7; max-width: 600px; }
+    main { padding: 30px 7%; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: white;
+      padding: 23px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px #1e3a8a0d;
+    }
+    .card .emoji { font-size: 32px; }
+    .card h3 { margin-bottom: 8px; }
+    .card p { color: #64748b; line-height: 1.6; }
+    .card a {
+      display: inline-block;
+      margin-top: 8px;
+      color: #2563eb;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .notice {
+      margin-top: 25px;
+      background: white;
+      border-radius: 16px;
+      padding: 22px;
+    }
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #64748b;
+    }
+    @media (max-width: 500px) {
+      .hero h2 { font-size: 27px; }
+    }
+  </style>
 </head>
-
 <body>
-
-    <!-- Background -->
-    <div class="bg-circle circle-1"></div>
-    <div class="bg-circle circle-2"></div>
-
-    <!-- Header -->
-    <header class="header">
-        <div class="logo">
-            <span class="logo-symbol">∑</span>
-            <span>Math<span class="logo-ai">AI</span></span>
-        </div>
-
-        <div class="header-badge">
-            🤖 AI Matematik Yordamchi
-        </div>
-    </header>
-
-
-    <!-- Main -->
-    <main class="container">
-
-        <!-- Hero -->
-        <section class="hero">
-
-            <div class="hero-badge">
-                ✨ Sun'iy intellekt bilan
-            </div>
-
-            <h1>
-                Matematik misolni
-                <span>oson yeching</span>
-            </h1>
-
-            <p>
-                Masalani yozing yoki rasmini yuklang.
-                MathAI uni tahlil qilib, yechimini bosqichma-bosqich tushuntiradi.
-            </p>
-
-        </section>
-
-
-        <!-- Main Card -->
-        <section class="math-card">
-
-            <!-- Upload -->
-            <div class="section-title">
-                <span class="number">1</span>
-
-                <div>
-                    <h2>Masalani kiriting</h2>
-                    <p>Rasm yuklang yoki masalani yozing</p>
-                </div>
-            </div>
-
-
-            <div
-                class="upload-area"
-                id="uploadArea"
-                onclick="document.getElementById('imageInput').click()"
-            >
-
-                <input
-                    type="file"
-                    id="imageInput"
-                    accept="image/*"
-                    hidden
-                >
-
-                <div id="uploadContent">
-
-                    <div class="upload-icon">
-                        📷
-                    </div>
-
-                    <h3>Masala rasmini yuklang</h3>
-
-                    <p>
-                        Rasmni shu yerga tashlang yoki
-                        <strong>tanlang</strong>
-                    </p>
-
-                    <span class="upload-format">
-                        JPG, PNG yoki WEBP
-                    </span>
-
-                </div>
-
-
-                <!-- Preview -->
-                <div
-                    id="previewBox"
-                    class="preview-box"
-                    style="display:none;"
-                >
-
-                    <img
-                        id="previewImage"
-                        src=""
-                        alt="Masala rasmi"
-                    >
-
-                    <button
-                        type="button"
-                        class="remove-image"
-                        onclick="event.stopPropagation(); removeImage();"
-                    >
-                        ✕
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- Divider -->
-            <div class="or-divider">
-                <span>yoki</span>
-            </div>
-
-
-            <!-- Text input -->
-            <div class="text-input-wrapper">
-
-                <label for="problemInput">
-                    ✏️ Masalani yozing
-                </label>
-
-                <textarea
-                    id="problemInput"
-                    placeholder="Masalan: 2x + 5 = 17 tenglamani yeching..."
-                    rows="5"
-                ></textarea>
-
-            </div>
-
-
-            <!-- Examples -->
-            <div class="examples">
-
-                <span>Tezkor misollar:</span>
-
-                <button
-                    type="button"
-                    onclick="setExample('2x + 5 = 17 tenglamani yeching')"
-                >
-                    2x + 5 = 17
-                </button>
-
-                <button
-                    type="button"
-                    onclick="setExample('25 × 16 ni hisoblang')"
-                >
-                    25 × 16
-                </button>
-
-                <button
-                    type="button"
-                    onclick="setExample('x² - 5x + 6 = 0 tenglamani yeching')"
-                >
-                    x² - 5x + 6 = 0
-                </button>
-
-            </div>
-
-
-            <!-- Solve -->
-            <button
-                type="button"
-                class="solve-button"
-                onclick="solveProblem()"
-            >
-
-                <span class="solve-icon">✨</span>
-
-                <span>Masalani yechish</span>
-
-                <span class="arrow">→</span>
-
-            </button>
-
-
-            <!-- Result -->
-            <div
-                id="resultCard"
-                class="result-card"
-                style="display:none;"
-            >
-
-                <div class="result-header">
-
-                    <div class="result-title">
-                        <span class="result-icon">🤖</span>
-
-                        <div>
-                            <h2>AI javobi</h2>
-                            <p>Masala tahlili va yechimi</p>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <div
-                    id="resultText"
-                    class="result-text"
-                >
-                    AI javobi shu yerda chiqadi.
-                </div>
-
-
-                <div class="result-actions">
-
-                    <button
-                        type="button"
-                        class="copy-button"
-                        onclick="copyResult()"
-                    >
-                        📋 Javobni nusxalash
-                    </button>
-
-                    <button
-                        type="button"
-                        class="new-button"
-                        onclick="newProblem()"
-                    >
-                        ↻ Yangi masala
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- Warning -->
-            <div class="warning">
-
-                <span>💡</span>
-
-                <p>
-                    <strong>Maslahat:</strong>
-                    Rasmni aniq va yorug‘ joyda oling.
-                    Shunda AI masalani yaxshiroq o‘qiydi.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- Features -->
-        <section class="features">
-
-            <div class="feature">
-
-                <div class="feature-icon">📸</div>
-
-                <h3>Rasmni o‘qiydi</h3>
-
-                <p>
-                    Matematik masalani rasmdan taniydi.
-                </p>
-
-            </div>
-
-
-            <div class="feature">
-
-                <div class="feature-icon">🧠</div>
-
-                <h3>AI tahlil qiladi</h3>
-
-                <p>
-                    Masalani tushunib, yechim usulini topadi.
-                </p>
-
-            </div>
-
-
-            <div class="feature">
-
-                <div class="feature-icon">📝</div>
-
-                <h3>Bosqichma-bosqich</h3>
-
-                <p>
-                    Yechimni tushunarli tarzda ko‘rsatadi.
-                </p>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- Footer -->
-    <footer class="footer">
-
-        <div class="footer-logo">
-            ∑ MathAI
-        </div>
-
-        <p>
-            Matematikani tushunish — uni yodlashdan yaxshiroq.
-        </p>
-
-        <span>
-            © 2026 MathAI
-        </span>
-
-    </footer>
-
-
-    <script src="script.js"></script>
-
+  <header>
+    <div>
+      <h1>🎓 MaktabHub Pro</h1>
+      <p>Bilim sari birgalikda!</p>
+    </div>
+    <div>O‘qituvchi • O‘quvchi</div>
+  </header>
+
+  <section class="hero">
+    <h2>Maktab hayoti bir joyda!</h2>
+    <p>
+      Dars jadvali, uy vazifalari, testlar va maktab
+      yangiliklarini qulay tarzda kuzatib boring.
+    </p>
+  </section>
+
+  <main>
+    <h2>📚 Asosiy bo‘limlar</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="emoji">📢</div>
+        <h3>Maktab e’lonlari</h3>
+        <p>Maktab yangiliklari va muhim xabarlar.</p>
+        <a href="#elonlar">Ko‘rish →</a>
+      </div>
+      <div class="card">
+        <div class="emoji">📝</div>
+        <h3>Uy vazifalari</h3>
+        <p>Fanlar bo‘yicha vazifalarni kuzatish.</p>
+        <a href="#vazifalar">Ko‘rish →</a>
+      </div>
+      <div class="card">
+        <div class="emoji">📅</div>
+        <h3>Dars jadvali</h3>
+        <p>Darslar va fanlar jadvali.</p>
+        <a href="#jadval">Ko‘rish →</a>
+      </div>
+      <div class="card">
+        <div class="emoji">🏆</div>
+        <h3>Testlar</h3>
+        <p>Bilimingizni testlar orqali tekshiring.</p>
+        <a href="#testlar">Ko‘rish →</a>
+      </div>
+    </div>
+
+    <section class="notice" id="elonlar">
+      <h2>📢 E’lonlar</h2>
+      <p>Hozircha e’lonlar yo‘q. Tez orada yangiliklar joylanadi.</p>
+    </section>
+
+    <section class="notice" id="vazifalar">
+      <h2>📝 Uy vazifalari</h2>
+      <p>Uy vazifalari bo‘limi tez orada ishga tushadi.</p>
+    </section>
+
+    <section class="notice" id="jadval">
+      <h2>📅 Dars jadvali</h2>
+      <p>Dars jadvali tez orada joylanadi.</p>
+    </section>
+
+    <section class="notice" id="testlar">
+      <h2>🏆 Testlar</h2>
+      <p>Testlar bo‘limi tez orada ishga tushadi.</p>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 MaktabHub Pro — Ta’lim uchun yaratilgan platforma.
+  </footer>
 </body>
 </html>
